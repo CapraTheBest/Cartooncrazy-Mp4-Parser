@@ -20,12 +20,12 @@ print('[+]Going EVEN Deeper')
 
 response1 = requests.get(link2)
 soup2 = BeautifulSoup(response1.content, "html.parser")
-Final_Url = re.findall('(file).+\"(.*?)\"', str(soup2.contents))
-for x in Final_Url:
-	if('mp4' in x[1]):
+candidates = re.findall('(file).+\"(.*?)\"', str(soup2.contents))
+for mp4_url in candidates:
+	if('mp4' in mp4_url[1]):
 		print('Success!')
-		#print(x[1].replace("&", "^&"))
-		subprocess.call([config.VLC_FOLDER, x[1].replace("&", "^&")], shell=True)
+		#print(mp4_url[1].replace("&", "^&"))
+		subprocess.call([config.VLC_FOLDER, mp4_url[1].replace("&", "^&")], shell=True)
 		break
 	else:
 		print('We failed :(')
